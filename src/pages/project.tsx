@@ -1,13 +1,14 @@
 import {usePageTitle} from "../context/pageTitleContext";
 import {useEffect} from "react";
 
-export default function HelpAndCenter()
+export default function  Project()
 {
+
     const {setTitle} = usePageTitle();
     useEffect(()=>{
-        setTitle(['Help and Center']);
+        setTitle(['Project']);
     },[])
-    return (
+    return(
         <div></div>
     )
 }
