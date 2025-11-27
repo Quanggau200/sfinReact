@@ -33,7 +33,6 @@ const Setting =()=>{
                            ))}
                        </nav>
                    </aside>
-
                    {/* Main Content Area */}
                    <main className="flex-5">
 
@@ -101,9 +100,7 @@ const Setting =()=>{
                                {/* Contact Information Card */}
                                <div className="bg-gray-50/50 border border-gray-100 rounded-xl p-6">
                                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact information</h3>
-
                                    <div className="space-y-4">
-                                       {/* Work Email */}
                                        <div>
                                            <label className="block text-sm font-medium text-gray-700 mb-1">Work email</label>
                                            <input
@@ -117,14 +114,10 @@ const Setting =()=>{
                                        <div>
                                            <label className="block text-sm font-medium text-gray-700 mb-1">Number phone</label>
                                            <div className="flex">
-                                               <div className="flex items-center px-3 border border-r-0 border-gray-200 rounded-l-lg bg-white text-gray-500">
-                                                   <span className="mr-1">🇺🇸</span> +1
-                                                   <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                                               </div>
                                                <input
                                                    type="text"
                                                    defaultValue="89 827 824 019"
-                                                   className="w-full px-4 py-2 rounded-r-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
+                                                   className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
                                                />
                                            </div>
                                        </div>

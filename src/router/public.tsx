@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import MainLayout from "../layouts/Mainlayout";
 import AuthLayout from "../layouts/Authlayout";
+import ProtectedRoute from "../component/ProtectedRoute";
 
 const DashBoard = lazy(() => import('../pages/dashboard'));
 const Employee = lazy(() => import('../pages/employee'));
@@ -17,7 +18,9 @@ const Signin = lazy(() => import('../pages/signin'));
 
 export const PublicRouter = [
     {
-        element: <MainLayout />,
+        element:(
+           <MainLayout/>
+        ),
         children: [
             { path: '/dashboard', element: <DashBoard /> },
             { path: '/employee', element: <Employee /> },
@@ -32,10 +35,16 @@ export const PublicRouter = [
         ]
     },
     {
-        element: <AuthLayout />,
+        element:<ProtectedRoute/>,
         children: [
-            { path: '/', element: <Home /> },
-            { path: '/register', element: <Signin /> },
+            {
+                element: <AuthLayout/>,
+                children: [
+                    {path: '/', element: <Home/>},
+                    {path: '/register', element: <Signin/>},
+
+                ]
+            }
         ]
     }
 ]

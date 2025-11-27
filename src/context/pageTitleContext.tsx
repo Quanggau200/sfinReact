@@ -13,7 +13,6 @@ export const PageTitleProvider = ({children}:{children:ReactNode}) => {
         </PageTitleContext.Provider>
     )
 }
-
 export const usePageTitle = () =>
 {
     const context=useContext(PageTitleContext);

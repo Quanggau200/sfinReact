@@ -5,6 +5,7 @@ import {ToastContainer} from "react-toastify";
 import {PageTitleProvider} from "./context/pageTitleContext";
 function App() {
     const router=createBrowserRouter(route())
+
   return (
     <>
        <PageTitleProvider>

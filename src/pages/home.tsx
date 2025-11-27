@@ -68,7 +68,7 @@ export default function Home() {
           </div>
 
           {/* Login Form */}
-          <form className="space-y-5" onSubmit={handleSubmit(login)}>
+          <form className="space-y-3" onSubmit={handleSubmit(login)}>
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -118,23 +118,9 @@ export default function Home() {
                 </button>
               </div>
             </div>
-
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                 
-                  className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
-                />
-                <span className="ml-2 text-sm text-gray-700">Remember me</span>
-              </label>
               <a href="#" className="text-sm text-orange-500 hover:text-orange-600 font-medium">
                 Forget password?
               </a>
-            </div>
-
-            {/* Sign In Button */}
             <button
               className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 rounded-lg transition duration-200"
             >

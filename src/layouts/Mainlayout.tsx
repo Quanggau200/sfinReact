@@ -4,9 +4,7 @@ import {usePageTitle} from "../context/pageTitleContext";
 import './sliderbar.css'
 
 export default function Mainlayout() {
-
-    const {title}= usePageTitle();
-    console.log(title);
+    const {title} = usePageTitle();
     return (
         <div className="flex h-screen bg-gray-50">
             {/* Sidebar bên trái */}
