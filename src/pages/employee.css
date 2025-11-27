@@ -1,0 +1,33 @@
+.export
+{
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+.input_sreach,.input_sreach input
+{
+    width: 145px;
+}
+.status
+{
+    border-radius: 10px;
+}
+td
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.previous
+{
+    padding:5px;
+}
+.number
+{
+    margin:1px 0;
+}
+.action
+{
+    padding: 0 7px ;
+}
+

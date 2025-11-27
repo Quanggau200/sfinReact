@@ -27,7 +27,7 @@ type MenuItem = {
 
 export default function SliderBar() {
     const [activeMenu, setActiveMenu] = useState("Dashboard");
-    const {user,loading} = useUser();
+    const {user} = useUser();
     const navigate = useNavigate();
     const [isCollapsed, setIsCollapsed] = useState(false);
     const mainMenuItem = [
