@@ -1,66 +1,45 @@
-import {usePageTitle} from "../context/pageTitleContext";
-import {useEffect} from "react";
-import "./employee.css"
+import {usePageTitle} from "../../context/pageTitleContext";
+import {useEffect, useMemo, useState} from "react";
+import "./employee.css";
+import type ModelEmployee from "../../model/ModelEmployee";
+import EmployeeApi from "../../api/userApi";
+import {FaUser} from "react-icons/fa";
+
+type StatusType="All"|"Full-time"|"Part-time"|"Internship";
+
 export default function Employee()
 {
     const {setTitle} = usePageTitle();
     useEffect(()=>{
         setTitle(['Employee']);
     },[])
-        const employees = [
-            {
-                id: "23124324023",
-                name: "James Wilson",
-                phone: "(303) 849-2651",
-                role: "Network Engineer",
-                email: "c.a.glasser@outlook.com",
-                salary: "$4,944.70",
-                status: "Full-time",
-                avatar: "https://i.pravatar.cc/150?u=1",
-            },
-            {
-                id: "78124398012",
-                name: "Andrew Scott",
-                phone: "(503) 714-9086",
-                role: "Data Scientist",
-                email: "david291@gmail.com",
-                salary: "$4,944.70",
-                status: "Part-time",
-                avatar: "https://i.pravatar.cc/150?u=2",
-            },
-            {
-                id: "75123984762",
-                name: "Emma Robinson",
-                phone: "(503) 714-9086",
-                role: "Network Engineer",
-                email: "k.p.allen@aol.com",
-                salary: "$4,944.70",
-                status: "Full-time",
-                avatar: "https://i.pravatar.cc/150?u=3",
-            },
-            {
-                id: "39124857392",
-                name: "Christopher Hall",
-                phone: "(415) 823-6754",
-                role: "Network Admin",
-                email: "c_j_mccoy@gmail.com",
-                salary: "$4,944.70",
-                status: "Internship",
-                avatar: "https://i.pravatar.cc/150?u=4",
-            },
-            {
-                id: "61234895321",
-                name: "Laura King",
-                phone: "(210) 903-5164",
-                role: "Data Scientist",
-                email: "katie63@aol.com",
-                salary: "$4,944.70",
-                status: "Part-time",
-                avatar: "https://i.pravatar.cc/150?u=5",
-            },
-            // ... bạn có thể thêm nhiều dữ liệu hơn ở đây
-        ];
-    const getStatusStyle = (status) => {
+    const [selectStatus, setSelectStatus] = useState<StatusType>("All");
+    const [dataEmployee,setDataEmployee] = useState<ModelEmployee[]>([]);
+    const [loading, setLoading] = useState(true );
+    const fetchEmployee= async ()=>
+    {
+        try {
+            const reponse=await EmployeeApi.getEmployee();
+            setDataEmployee(reponse.data.data.content);
+        }
+        catch(err){
+            console.log(err);
+        }
+        finally{
+            setLoading(false);
+        }
+
+    }
+    useEffect(() => {
+        fetchEmployee();
+    }, []);
+    const filteredEmployee = useMemo(() => {
+        if (!dataEmployee) return []; // Xử lý null ở trong này
+        if (selectStatus === "All") return dataEmployee;
+        return dataEmployee.filter(emp => emp.role_company === selectStatus);
+    }, [dataEmployee, selectStatus]);
+    if(loading) return <div>Loading....</div>
+    const getStatusStyle = (status:string) => {
         switch (status) {
             case "Full-time":
                 return " text-green-700 border border-[#E8E8E9]";
@@ -68,6 +47,8 @@ export default function Employee()
                 return " text-orange-700 border border-[#E8E8E9]";
             case "Internship":
                 return " text-blue-700 border border-[#E8E8E9]";
+                default:
+                    return "bg-red-400";
         }
     };
     return (
@@ -78,10 +59,17 @@ export default function Employee()
                     {/* Tabs */}
                     <div className="bg-gray-100 rounded-xl" >
                       <div className="flex gap-0.5 py-0.5">
-                          <button className="status px-4 py-1.5 ms-0.5 bg-white text-sm  text-gray-800 shadow-sm leading-6">All</button>
-                          <button className="status px-4 py-1.5 text-sm  text-gray-500 hover:text-gray-700 leading-6">Full-time</button>
-                          <button className="status px-4 py-1.5 text-sm  text-gray-500 hover:text-gray-700 leading-6">Part-time</button>
-                          <button className="status px-4 py-1.5 text-sm text-gray-500 hover:text-gray-700 leading-6">Internship</button>
+                          {["All","Full-time","Part-time","Internship"].map((status:string)=>(
+
+                          <button
+                            key={status}
+                              onClick={()=>setSelectStatus(status as StatusType)}
+                              className={`status px-4 py-1.5 ms-0.5 text-sm  text-gray-800 leading-6
+                              ${selectStatus === status  ? "text-black bg-white" :"text-gray-500 hover:text-gray-700"}
+                              `}
+                              >{status}
+                          </button>
+                ))}
                       </div>
                     </div>
 
@@ -115,30 +103,30 @@ export default function Employee()
                     </div>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 mt-5">
+                <div className="bg-white border border-gray-300 rounded-xl shadow-md mt-5">
                     {/* Table */}
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                    <div className="overflow-x-auto rounded-xl">
+                        <table className="w-full text-left border-t border-gray-300  ">
                             <thead>
-                            <tr className="bg-gray-50 ">
-                                <th className="w-[40px] h-[40px] text-center align-middle border-r border-gray-200">
+                            <tr className="bg-gray-50 rounded-xl ">
+                                <th className="w-[40px] h-[40px] text-center align-middle border border-gray-200">
                                     <input
                                         type="checkbox"
                                         className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                                     />
                                 </th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Full name</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Employee ID</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Number phone</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Role</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Email</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Salary</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200">Status</th>
-                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-gray-200 "></th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r  border-b    border-gray-200">Full name</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200">Employee ID</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200">Number phone</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200">Role</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200">Email</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200">Salary</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200">Status</th>
+                                <th className="py-2 px-3 text-gray-500 font-normal border-r border-b border-gray-200 "></th>
                             </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                            {employees.map((employee, index) => (
+                            {filteredEmployee ?.map((employee, index) => (
                                 <tr key={index} className="hover:bg-gray-50 transition-colors group border-r border-gray-200">
                                     <td className=" text-center align-middle border-r border-gray-200 ">
                                         <input
@@ -148,28 +136,26 @@ export default function Employee()
                                     </td>
                                     <td className="border-r border-gray-200">
                                         <div className="flex items-center gap-2.5">
-                                            <img src={employee.avatar} alt={employee.name} className="w-6 h-6 rounded-full object-cover" />
-                                            <span className=" text-sm font-medium text-gray-900">{employee.name}</span>
+                                            <FaUser/>
+                                            {/*<img src="" alt={employee.fullName} className="w-6 h-6 rounded-full object-cover" />*/}
+                                            <span className=" text-s font-normal text-black">{employee.fullName}</span>
                                         </div>
                                     </td>
-                                    <td className=" border-r border-gray-200 text-sm text-gray-600 font-mono ">{employee.id}</td>
-                                    <td className="  border-r border-gray-200 text-sm text-gray-600">{employee.phone}</td>
-                                    <td className="  border-r border-gray-200 text-sm text-gray-900">{employee.role}</td>
-                                    <td className=" border-r border-gray-200 text-sm text-gray-600">{employee.email}</td>
-                                    <td className="border-r border-gray-200 text-sm font-medium text-gray-900">{employee.salary}</td>
+                                    <td className=" border-r border-gray-200 text-sx ttext-black font-normal ">{employee.employeeId.substring(0,8)}</td>
+                                    <td className="  border-r border-gray-200 text-sx text-black font-normal">{employee.phone}</td>
+                                    <td className="  border-r border-gray-200 text-sx text-black font-normal">{employee.role_company}</td>
+                                    <td className=" border-r border-gray-200 text-sx text-black font-normal">{employee.email}</td>
+                                    <td className="border-r border-gray-200 text-sx font-medium text-black font-normal">{employee.salary}</td>
                                     <td className="border-r border-gray-200 ">
-                      <span className={`status_text inline-flex items-center gap-1.5 py-1 px-2 rounded-md text-xs font-medium border ${getStatusStyle(employee.status)}`}>
-                        <span
-                            className={`w-1.5 h-1.5 rounded-full ${
-                                employee.status === "Full-time"
-                                    ? "bg-red-500"
-                                    : employee.status === "Part-time"
-                                        ? "bg-orange-500"
-                                        : "bg-blue-500"
-                            }`}
-                        ></span>
+                      <span
+                          className={`status_text inline-flex items-center gap-1.5 py-1 px-2 rounded-md text-xs font-medium border ${getStatusStyle(employee.status)}`}
+                      >
+  <span
+      className={`w-1.5 h-1.5 rounded-full ${getStatusStyle(employee.status)}`}
+  ></span>
                           {employee.status}
-                      </span>
+</span>
+
                                     </td>
                                     <td className="text-center action">
                                         <button className="  text-  -400 hover:text-gray-600 p-1 rounded-md hover:bg-gray-100 border border-gray-300">

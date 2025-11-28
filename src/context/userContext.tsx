@@ -1,7 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import authApi from "../api/authApi";
 import React from "react";
-import {useNavigate} from "react-router-dom";
 
 // định nghĩa bảng user có những gì
 interface User{

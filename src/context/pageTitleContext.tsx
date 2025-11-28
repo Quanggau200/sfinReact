@@ -1,5 +1,5 @@
 import {createContext,useContext,useState} from "react";
-import {ReactNode} from "react";
+import {    ReactNode} from "react";
 interface typePageTitleContext {
     title: string[];
     setTitle: (title: string[]) => void;

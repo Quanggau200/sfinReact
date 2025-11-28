@@ -6,9 +6,11 @@ import {useRegisterForm} from "../hooks/validateForm";
 import {yupResolver} from "@hookform/resolvers/yup";
 import { type SubmitHandler, useForm} from "react-hook-form";
 import authApi from "../api/authApi";
+import {useUser} from "../context/userContext";
 export default function Home() {
     const {loginSchema}= useRegisterForm();
     const navigate=useNavigate();
+    const {fetchUser} = useUser();
     const {register,handleSubmit,formState:{errors}} = useForm<LoginFormValue>({
         resolver: yupResolver(loginSchema),
         mode:"onBlur"
@@ -18,6 +20,7 @@ export default function Home() {
     {
         try {
             const reponse = await authApi.login(data);
+            await fetchUser();
             navigate("/dashboard");
 
         }catch(err){

@@ -16,7 +16,7 @@ import {useNavigate} from "react-router-dom";
 import price from "../assets/images/Price.svg";
 import "./sliderbar.css";
 import {useUser} from "../context/userContext";
-
+import {NavLink} from "react-router-dom";
 type MenuItem = {
     id: string;
     title: string;
@@ -104,14 +104,14 @@ export default function SliderBar() {
                         {mainMenuItem.map((item) => {
                             const isActive = activeMenu === item.id;
                             return (
-                                <button
+                                <NavLink
                                     key={item.id}
+                                    to={item.path}
                                     onClick={() => handleMenuClick(item)}
                                     title={isCollapsed ? item.title : ""} // Tooltip khi thu nhỏ
-                                    className={`w-full flex items-center px-3 py-2.5 rounded-lg transition-all group relative
-                    ${isActive ? "bg-white text-black shadow-sm" : "text-gray-600 hover:bg-gray-200"}
-                    ${isCollapsed ? "justify-center" : "gap-3"} 
-                  `}
+                                    className={({isActive})=>
+                                    `w-full flex items-center px-3 py-2.5 rounded-lg transition-all group relative ${isActive ?"bg-white text-black shadow-sm" : "text-gray-600 hover:bg-gray-200"}
+                                    ${isCollapsed ? "justify-center" : "gap-3"}`}
                                 >
                                     <img src={item.icon} alt={item.title} className="w-5 h-5 flex-shrink-0"/>
 
@@ -134,7 +134,7 @@ export default function SliderBar() {
                         </span>
                                         )
                                     )}
-                                </button>
+                                </NavLink>
                             );
                         })}
                     </nav>

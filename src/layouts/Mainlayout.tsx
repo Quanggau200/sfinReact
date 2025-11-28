@@ -6,10 +6,10 @@ import './sliderbar.css'
 export default function Mainlayout() {
     const {title} = usePageTitle();
     return (
+
         <div className="flex h-screen bg-gray-50">
             {/* Sidebar bên trái */}
             <SliderBar />
-
             {/* Phần bên phải */}
             <div className="flex-1 flex flex-col overflow-hidden bg-white">
 
