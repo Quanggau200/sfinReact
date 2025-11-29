@@ -32,7 +32,7 @@ export default function SliderBar() {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const mainMenuItem = [
         {id: "Dashboard", title: "Dashboard", icon: Path, path: "/dashboard"},
-        {id: "Employee", title: "Employee", icon: Employee, path: "/employee"},
+        {id: "Employee", title: "Employee", icon: Employee, path: "/employees"},
         {id: "Attendence", title: "Attendence", icon: Attendence, path: "/attendence"},
         {id: "Project", title: "Project", icon: Project, path: "/project"},
         {id: "Schedule", title: "Schedule", icon: Schedule, path: "/schedule"},
@@ -110,7 +110,7 @@ export default function SliderBar() {
                                     onClick={() => handleMenuClick(item)}
                                     title={isCollapsed ? item.title : ""} // Tooltip khi thu nhỏ
                                     className={({isActive})=>
-                                    `w-full flex items-center px-3 py-2.5 rounded-lg transition-all group relative ${isActive ?"bg-white text-black shadow-sm" : "text-gray-600 hover:bg-gray-200"}
+                                    `w-full flex items-center px-3 py-2.5 rounded-lg transition-all group relative ${ isActive ?"bg-white text-black shadow-sm" : "text-gray-600 hover:bg-gray-200"}
                                     ${isCollapsed ? "justify-center" : "gap-3"}`}
                                 >
                                     <img src={item.icon} alt={item.title} className="w-5 h-5 flex-shrink-0"/>

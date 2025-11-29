@@ -1,6 +1,6 @@
 export type UUID = string;
 
-interface ModelEmployee {
+export type ModelEmployee ={
     employeeId: UUID;
     fullName: string;
     phone: string;
@@ -18,4 +18,3 @@ interface ModelEmployee {
     updateAt: string;
 }
 
-export default ModelEmployee;

@@ -6,7 +6,7 @@ const EmployeeApi={
     },
 
     getByEmployeeID: (employeeID:string) => {
-        const url = `sfinvietnam/auth/employees/${employeeID}`;
+        const url = `sfinvietnam/employees/${employeeID}`;
         return axiosClient.get(url);
     }
 }

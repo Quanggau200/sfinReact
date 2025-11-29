@@ -1,9 +1,10 @@
 import {usePageTitle} from "../../context/pageTitleContext";
 import {useEffect, useMemo, useState} from "react";
 import "./employee.css";
-import type ModelEmployee from "../../model/ModelEmployee";
+import type {ModelEmployee} from "../../model/ModelEmployee";
 import EmployeeApi from "../../api/userApi";
 import {FaUser} from "react-icons/fa";
+import {Link} from "react-router-dom";
 
 type StatusType="All"|"Full-time"|"Part-time"|"Internship";
 
@@ -34,9 +35,9 @@ export default function Employee()
         fetchEmployee();
     }, []);
     const filteredEmployee = useMemo(() => {
-        if (!dataEmployee) return []; // Xử lý null ở trong này
+        if (!dataEmployee) return [];
         if (selectStatus === "All") return dataEmployee;
-        return dataEmployee.filter(emp => emp.role_company === selectStatus);
+        return dataEmployee.filter(emp => emp.status === selectStatus);
     }, [dataEmployee, selectStatus]);
     if(loading) return <div>Loading....</div>
     const getStatusStyle = (status:string) => {
@@ -150,19 +151,23 @@ export default function Employee()
                       <span
                           className={`status_text inline-flex items-center gap-1.5 py-1 px-2 rounded-md text-xs font-medium border ${getStatusStyle(employee.status)}`}
                       >
-  <span
-      className={`w-1.5 h-1.5 rounded-full ${getStatusStyle(employee.status)}`}
-  ></span>
+                        <span
+                         className={`w-1.5 h-1.5 rounded-full ${getStatusStyle(employee.status)}`}
+                            ></span>
                           {employee.status}
-</span>
+                        </span>
 
                                     </td>
                                     <td className="text-center action">
-                                        <button className="  text-  -400 hover:text-gray-600 p-1 rounded-md hover:bg-gray-100 border border-gray-300">
+                                        <Link
+                                            to={`/employees/detail?id=${btoa(employee.employeeId)}`}
+                                              className="bg-white">
+                                        <button   className="  text-  -400 hover:text-gray-600 p-1 rounded-md hover:bg-gray-100 border border-gray-300" >
                                             <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                                             </svg>
                                         </button>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}
