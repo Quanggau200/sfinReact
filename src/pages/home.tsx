@@ -7,6 +7,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import { type SubmitHandler, useForm} from "react-hook-form";
 import authApi from "../api/authApi";
 import {useUser} from "../context/userContext";
+import DetailEmployee from "./Employee/detailEmployee";
 export default function Home() {
     const {loginSchema}= useRegisterForm();
     const navigate=useNavigate();
@@ -20,7 +21,9 @@ export default function Home() {
     {
         try {
             const reponse = await authApi.login(data);
+            console.log(reponse);
             await fetchUser();
+
             navigate("/dashboard");
 
         }catch(err){

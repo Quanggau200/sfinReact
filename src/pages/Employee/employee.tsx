@@ -4,9 +4,9 @@ import "./employee.css";
 import type {ModelEmployee} from "../../model/ModelEmployee";
 import EmployeeApi from "../../api/userApi";
 import {FaUser} from "react-icons/fa";
-import {Link} from "react-router-dom";
-
+import DetailEmployee from "./detailEmployee";
 type StatusType="All"|"Full-time"|"Part-time"|"Internship";
+
 
 export default function Employee()
 {
@@ -17,6 +17,9 @@ export default function Employee()
     const [selectStatus, setSelectStatus] = useState<StatusType>("All");
     const [dataEmployee,setDataEmployee] = useState<ModelEmployee[]>([]);
     const [loading, setLoading] = useState(true );
+    const [currentID,setCurrentID] = useState<string|null>(null);
+
+
     const fetchEmployee= async ()=>
     {
         try {
@@ -52,10 +55,22 @@ export default function Employee()
                     return "bg-red-400";
         }
     };
+    const getStatusDot=(status:string) => {
+        switch (status) {
+            case "Full-time":
+                return " bg-[#006f1f]";
+                case "Part-time":
+                    return " bg-[#ff7a2e]";
+                    case "Internship":
+                        return " bg-blue-500";
+                        default:
+                            return "bg-red-400";
+        }
+    }
     return (
         <div className="p-6 bg-white min-h-screen font-sans">
             <div className="main">
-                {/* Header Title */}
+
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-4 ">
                     {/* Tabs */}
                     <div className="bg-gray-100 rounded-xl" >
@@ -152,27 +167,47 @@ export default function Employee()
                           className={`status_text inline-flex items-center gap-1.5 py-1 px-2 rounded-md text-xs font-medium border ${getStatusStyle(employee.status)}`}
                       >
                         <span
-                         className={`w-1.5 h-1.5 rounded-full ${getStatusStyle(employee.status)}`}
+                         className={`w-1.5 h-1.5 rounded-full  ${getStatusDot(employee.status)}`}
                             ></span>
                           {employee.status}
                         </span>
 
                                     </td>
                                     <td className="text-center action">
-                                        <Link
-                                            to={`/employees/detail?id=${btoa(employee.employeeId)}`}
-                                              className="bg-white">
-                                        <button   className="  text-  -400 hover:text-gray-600 p-1 rounded-md hover:bg-gray-100 border border-gray-300" >
-                                            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                        <button
+                                            onClick={() => setCurrentID(employee.employeeId)}
+                                            className="hover:text-gray-600 p-1 rounded-md hover:bg-gray-100 border border-gray-300"
+                                        >
+                                            <svg
+                                                className="w-5 h-5"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                                                />
                                             </svg>
                                         </button>
-                                        </Link>
+
+                                        {/*<Link*/}
+                                        {/*    to={`/employees/detail?id=${btoa(employee.employeeId)}`}*/}
+                                        {/*    className="bg-white"*/}
+                                        {/*>*/}
+                                        {/*</Link>*/}
                                     </td>
                                 </tr>
                             ))}
                             </tbody>
                         </table>
+                        <DetailEmployee
+                            idEmployee={currentID}
+                            onclose={()=>setCurrentID(null)}
+                        />
                     </div>
 
                     {/* Footer / Pagination */}

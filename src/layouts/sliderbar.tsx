@@ -53,7 +53,7 @@ export default function SliderBar() {
     };
     return (
         <div
-            className={`custom-scroll smooth-scroll h-screen bg-gray-100 flex flex-col overflow-y-auto border-r border-gray-200 transition-all duration-300 ease-in-out ${
+            className={`custom-scroll smooth-scroll relative h-screen bg-gray-100 flex flex-col overflow-y-auto border-r border-gray-200 transition-all duration-300 ease-in-out  ${
                 isCollapsed ? "w-20" : "w-64"
             }`}
         >

@@ -13,7 +13,7 @@ export default function Mainlayout() {
             {/* Phần bên phải */}
             <div className="flex-1 flex flex-col overflow-hidden bg-white">
 
-                <header className="h-16 bg-white border-b border-gray-200 flex items-center px-6">
+                <header className="h-16 bg-white border-b border-gray-200 flex items-center px-6 relative">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                         {title.map((item, index) => (
                             <div key={index} className="flex items-center">

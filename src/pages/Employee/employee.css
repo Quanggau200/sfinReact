@@ -1,4 +1,5 @@
-.export
+
+export
 {
     padding-top: 9px;
     padding-bottom: 9px;
@@ -30,4 +31,14 @@ td
 {
     padding: 0 7px ;
 }
+.overlay
+{;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.5;
 
+}
+.date_of_contract {
+background: var( --background--employee);
+}
