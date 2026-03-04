@@ -2,7 +2,6 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import authApi from "../api/authApi";
 import React from "react";
 
-// định nghĩa bảng user có những gì
 interface User{
     id:string;
     username: string;

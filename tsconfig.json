@@ -1,16 +1,10 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" },
-
-  ],
   "compilerOptions": {
     "target": "ES6",
     "module": "ESNext",
     "jsx": "react-jsx",
     "strict": true,
-    "composite": true,
+    "noEmit": true  ,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowJs": true,

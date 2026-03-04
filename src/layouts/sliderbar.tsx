@@ -14,7 +14,6 @@ import Attendence from "../assets/images/Attendence.svg";
 import Employee from "../assets/images/Employee.svg";
 import {useNavigate} from "react-router-dom";
 import price from "../assets/images/Price.svg";
-import "./sliderbar.css";
 import {useUser} from "../context/userContext";
 import {NavLink} from "react-router-dom";
 type MenuItem = {

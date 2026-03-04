@@ -1,7 +1,6 @@
 import SliderBar from "./sliderbar";
 import {Outlet} from "react-router-dom";
 import {usePageTitle} from "../context/pageTitleContext";
-import './sliderbar.css'
 
 export default function Mainlayout() {
     const {title} = usePageTitle();

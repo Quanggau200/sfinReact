@@ -8,7 +8,6 @@ import arrowback from '../assets/images/arrowback.png';
 import {useState} from "react";
 import logo from "../assets/images/logo.png";
 import {useNotice} from "../hooks/notice";
-import {setAccessToken} from "../api/authStore";
 
 function SelectRole({selectRole}: { selectRole: (role: string) => void }) {
     const [selectedRole, setSelectedRole] = useState<string>('');
